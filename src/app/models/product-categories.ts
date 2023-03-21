@@ -1,10 +1,10 @@
 export class ProductCategories {
-    Id:number=0;
-    Name: string="";
-    Alias:string="";
-    Description:string ="";
-    ParentId:number=0;
-    MetaKeyword:string="";
-    MetaDescription:string="";
-    Status:number=0;
+    id:number=0;
+    name: string="";
+    alias:string="";
+    description:string ="";
+    parentId:number=0;
+    metaKeyword:string="";
+    metaDescription:string="";
+    status:number=0;
 }
