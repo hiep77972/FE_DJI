@@ -10,7 +10,8 @@ export class ProductCategoriesService {
 
   constructor(private http:HttpClient) { }
 
-  getProductCategories():Observable<Array<ProductCategories>>{
-    return this.http.get<Array<ProductCategories>>(url+'get-productcategories');
+  getProductCategories():Observable<any[]>{
+    return this.http.get<any>(url+'get-productcategories');
   }
+
 }

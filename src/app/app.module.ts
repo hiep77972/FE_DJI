@@ -15,6 +15,10 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from './api.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,11 +32,14 @@ import { FooterComponent } from './footer/footer.component';
     CheckoutComponent,
     HeaderComponent,
     FooterComponent,
+    HomeAdminComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

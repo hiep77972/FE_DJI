@@ -19,7 +19,7 @@
                         <div class="card">
                             <!-- Logo-->
                             <div class="card-header pt-4 pb-4 text-center bg-primary">
-                                <a href="index.html">
+                                <a href="">
                                     <span><img src="assets/images/logo.png" alt="" height="18"></span>
                                 </a>
                             </div>
@@ -34,19 +34,19 @@
                                 <form action="#">
 
                                     <div class="mb-3">
-                                        <label for="fullname" class="form-label">Tên người dùng</label>
-                                        <input class="form-control" type="text" id="fullname" placeholder="Nhập tên người dùng" required>
+                                        <label for="fullname" class="form-label">Tên đăng nhập</label>
+                                        <input [(ngModel)]="username" name="username" class="form-control" type="text" id="fullname" placeholder="Nhập tên đăng nhập" required>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="emailaddress" class="form-label">Tên đăng nhập</label>
-                                        <input class="form-control" type="email" id="emailaddress" required placeholder="Nhập tài khoản">
+                                        <label for="emailaddress" class="form-label">Email</label>
+                                        <input [(ngModel)]="email" name="username" class="form-control" type="email" id="emailaddress" required placeholder="Nhập email">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Mật khẩu</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+                                            <input [(ngModel)]="password" name="password" type="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
                                             <div class="input-group-text" data-password="false">
                                                 <span class="password-eye"></span>
                                             </div>
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="mb-3 text-center">
-                                        <button class="btn btn-primary" type="submit"> Đăng ký </button>
+                                        <button (click)="signupUser()" class="btn btn-primary" type="submit"> Đăng ký </button>
                                     </div>
 
                                 </form>
