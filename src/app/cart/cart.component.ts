@@ -17,11 +17,11 @@ export class CartComponent implements OnInit{
   id_order:any=0;
   constructor (private service:ApiService,private router:ActivatedRoute){}
   ngOnInit(): void {
-    this.id=this.router.snapshot.params['id'];
+    // this.id=this.router.snapshot.params['id'];
     this.getCarts();
   }
   getCarts(){
-    this.service.getCart(this.id).subscribe(data=>{
+    this.service.getCart(this.user).subscribe(data=>{
     this.carts=data;
     for (let i = 0; i < this.carts.length; i++) {
       this.total+=this.carts[i].price*this.carts[i].quantity;
@@ -53,8 +53,9 @@ export class CartComponent implements OnInit{
         this.removeAllCarts();
       }
       else{
-        this.addOrders();
-        this.getAllOrders();
+        this.service.addOrders(this.user).subscribe(res=>{
+          this.getAllOrders();
+        })
         this.removeAllCarts();
       }
     })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,7 +11,7 @@ export class HeaderComponent implements OnInit {
   table:any=[]
   countCart:any=0;
   user:any=localStorage.getItem('user_id')
-  constructor (private service:ApiService){}
+  constructor (private service:ApiService,private router:Router){}
   ngOnInit(): void {
     this.getListProductCategories();
     this.getCount();
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
   }
   remove_session_user_id(){
     localStorage.clear();
+    this.router.navigate(['/']);
   }
   getCount(){
     // this.service.getCountCart(1).subscribe(res=>{

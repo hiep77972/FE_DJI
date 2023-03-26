@@ -92,7 +92,8 @@
                         <div class="nav-item dropdown">
                             <a *ngIf="get_session_user_id()" routerLink="" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a [routerLink]="['/cart',user]" class="dropdown-item">Shopping Cart</a>
+                                <!-- <a [routerLink]="['/cart',user]" class="dropdown-item">Shopping Cart</a> -->
+                                <a routerLink="/cart" class="dropdown-item">Shopping Cart</a>
                                 <a routerLink="/checkout" class="dropdown-item">Checkout</a>
                             </div>
                         </div>

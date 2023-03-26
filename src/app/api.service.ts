@@ -75,4 +75,7 @@ export class ApiService {
   updateOrder(val:any){
     return this.http.put(this.url+'update-orders',val);
   }
+  addContact(val:any):Observable<any[]>{
+    return this.http.post<any>(this.url+'add-contacts',val);
+  }
 }
