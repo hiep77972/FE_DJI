@@ -78,4 +78,10 @@ export class ApiService {
   addContact(val:any):Observable<any[]>{
     return this.http.post<any>(this.url+'add-contacts',val);
   }
+  getProductByName(name:string):Observable<any[]>{
+    return this.http.get<any>(this.url+'get-product-by-name?name='+name);
+  }
+  getProductByCategory():Observable<any[]>{
+    return this.http.get<any>(this.url+'search-product-by-category');
+  }
 }

@@ -7,11 +7,15 @@ import { ApiService } from '../api.service';
 })
 export class ShopComponent  implements OnInit {
   products:any =[];
+  searchCategory:any=[]
   user:any=localStorage.getItem('user_id')
   response:any=[]
+  productname:any;
+  totalsearchCategory:any=0
   constructor (private service:ApiService){}
   ngOnInit(): void {
     this.getListProducts();
+    this.getProductByCategorys();
   }
   getListProducts(){
     this.service.getProducts().subscribe(data=>{
@@ -50,5 +54,22 @@ export class ShopComponent  implements OnInit {
       });
     }
     else alert("Vui lòng đăng nhập để tiếp tục")
+  }
+  searchProduct(){
+    this.service.getProductByName(this.productname).subscribe(data=>{
+      this.products=data;
+    });
+  }
+  getProductByCategorys(){
+    this.service.getProductByCategory().subscribe(data=>{
+      this.searchCategory=data;
+      for (let i = 0; i < this.searchCategory.length; i++) {
+        this.totalsearchCategory+=this.searchCategory[i].sosanpham;
+      }
+    });
+    
+  }
+  onChangeCat($event:any){
+    alert($event.target.name)
   }
 }
