@@ -27,12 +27,14 @@ export class LoginComponent implements OnInit{
         alert("Đăng nhập thành công")
         localStorage.setItem('user_id',this.response[0].id)
 
-        this.service.getCountCart(this.response[0].id).subscribe(data=>{
+        this.service.getCountCartById(this.response[0].id).subscribe(data=>{
           this.resCart=data;
           if(this.resCart[0]==null){
             localStorage.setItem('user_cart',"0")
           }
-          else localStorage.setItem('user_cart',this.resCart[0].count)
+          else{
+            localStorage.setItem('user_cart',this.resCart[0].count)
+          } 
           this.router.navigate(['/']);
           // window.location.href="http://localhost:4200";
         });
