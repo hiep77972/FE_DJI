@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
   styleUrls: ['./detail-product.component.css']
 })
 export class DetailProductComponent implements OnInit {
+  @ViewChild(HeaderComponent)
+  myChild:any;
   detailproduct:any;
   listdetailproduct:any=[]
   id:number=0;
@@ -17,6 +20,7 @@ export class DetailProductComponent implements OnInit {
   price:any=0
   quantity:any=0
   response:any=[]
+  user_carts:any=localStorage.getItem('user_cart')
   constructor (private service:ApiService,private router:ActivatedRoute){}
   ngOnInit(): void {
     this.id=this.router.snapshot.params['id'];
@@ -65,6 +69,9 @@ export class DetailProductComponent implements OnInit {
           
         })
       }
+      this.user_carts=Number.parseInt(this.user_carts)+Number.parseInt(this.quantity)
+        localStorage.setItem('user_cart',this.user_carts)
+        this.myChild.countCart=this.user_carts;
     });
   }
   else alert("Vui lòng đăng nhập để tiếp tục")
@@ -99,7 +106,11 @@ export class DetailProductComponent implements OnInit {
             
           })
         }
+        this.user_carts=Number.parseInt(this.user_carts)+1
+        localStorage.setItem('user_cart',this.user_carts)
+        this.myChild.countCart=this.user_carts;
       });
+
     }
     else alert("Vui lòng đăng nhập để tiếp tục")
   }

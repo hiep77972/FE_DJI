@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'shop',component:ShopComponent},
+  // {path:'shop/:name',component:ShopComponent},
   {path:'contact',component:ContactComponent},
   {path:'detail-product/:id',component:DetailProductComponent},
   {path:'cart',component:CartComponent},

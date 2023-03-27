@@ -40,10 +40,10 @@
         <div class="col-lg-6 col-6 text-left">
             <form action="">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input [(ngModel)]="productname" name="productname" id="productname" type="text" class="form-control" placeholder="Search for products">
                     <div class="input-group-append">
                         <span class="input-group-text bg-transparent text-primary">
-                            <i class="fa fa-search"></i>
+                            <i (click)="searchProduct()" class="fa fa-search"></i>
                         </span>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <i class="fas fa-heart text-primary"></i>
                 <span class="badge">0</span>
             </a>
-            <a href="" class="btn border">
+            <a routerLink="/cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">{{countCart}}</span>
             </a>

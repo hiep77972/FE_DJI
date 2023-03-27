@@ -1,19 +1,28 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component ,OnInit,ViewChild} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent  implements OnInit {
+  @ViewChild(HeaderComponent)
+  myChild:any;
   products:any =[];
   searchCategory:any=[]
   user:any=localStorage.getItem('user_id')
   response:any=[]
   productname:any;
   totalsearchCategory:any=0
-  constructor (private service:ApiService){}
+  selectedItems:number[]=new Array<number>();
+  tot:any=""
+  user_carts:any=localStorage.getItem('user_cart')
+  // checks:any=true
+  constructor (private service:ApiService,private router:ActivatedRoute){}
   ngOnInit(): void {
+    // this.productname=this.router.snapshot.params['name'];
     this.getListProducts();
     this.getProductByCategorys();
   }
@@ -51,6 +60,10 @@ export class ShopComponent  implements OnInit {
             
           })
         }
+        this.user_carts=Number.parseInt(this.user_carts)+1
+        localStorage.setItem('user_cart',this.user_carts)
+        this.myChild.countCart=this.user_carts;
+
       });
     }
     else alert("Vui lòng đăng nhập để tiếp tục")
@@ -69,7 +82,27 @@ export class ShopComponent  implements OnInit {
     });
     
   }
-  onChangeCat($event:any){
-    alert($event.target.name)
+  onChangeCat(e:any,id:any){
+    if(e.target.checked){
+      this.selectedItems.push(id)
+    }
+    else{
+      this.selectedItems=this.selectedItems.filter(m=>m!=id)
+    } 
+    this.tot=""
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      if(i==this.selectedItems.length-1)
+      this.tot+=this.selectedItems[i];
+      else this.tot+=this.selectedItems[i]+",";
+    }
+    if(this.tot!="")
+    this.tot="("+this.tot+")"
+    this.service.getProductByCatName(this.tot).subscribe(data=>{
+      this.products=data;
+    });
   }
+  // bulk(e:any){
+  //   if(e.target.checked==true) this.checks=true;
+  //   else this.checks=false;
+  // }
 }

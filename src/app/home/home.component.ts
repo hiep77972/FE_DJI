@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent  implements OnInit {
+  @ViewChild(HeaderComponent)
+  myChild:any;
   products:any =[];
   user:any=localStorage.getItem('user_id')
+  user_carts:any=localStorage.getItem('user_cart')
   response:any=[]
+
   constructor (private service:ApiService){}
   ngOnInit(): void {
     this.getListProducts();
+
   }
+
   getListProducts(){
     this.service.getProducts().subscribe(data=>{
     this.products=data;
@@ -47,7 +56,12 @@ export class HomeComponent  implements OnInit {
             
           })
         }
+        this.user_carts=Number.parseInt(this.user_carts)+1
+        localStorage.setItem('user_cart',this.user_carts)
+        this.myChild.countCart=this.user_carts;
+
       });
+
     }
     else alert("Vui lòng đăng nhập để tiếp tục")
   }

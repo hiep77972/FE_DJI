@@ -84,4 +84,10 @@ export class ApiService {
   getProductByCategory():Observable<any[]>{
     return this.http.get<any>(this.url+'search-product-by-category');
   }
+  getProductByCatName(name:string):Observable<any[]>{
+    return this.http.get<any>(this.url+'search-product-by-category-id?name='+name);
+  }
+  getCountCartById(id:number):Observable<any[]>{
+    return this.http.get<any>(this.url+'get-count-carts-by-id?id='+id);
+  }
 }

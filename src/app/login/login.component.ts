@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit{
   username:any;
   email:any;
   password:any;
-  
+  resCart:any=[]
   constructor(private service:ApiService,private router:Router){}
   ngOnInit(){
 
@@ -26,8 +26,17 @@ export class LoginComponent implements OnInit{
       if(this.response[0]!=null){
         alert("Đăng nhập thành công")
         localStorage.setItem('user_id',this.response[0].id)
-        this.router.navigate(['/']);
-        // window.location.href="http://localhost:4200";
+
+        this.service.getCountCart(this.response[0].id).subscribe(data=>{
+          this.resCart=data;
+          if(this.resCart[0]==null){
+            localStorage.setItem('user_cart',"0")
+          }
+          else localStorage.setItem('user_cart',this.resCart[0].count)
+          this.router.navigate(['/']);
+          // window.location.href="http://localhost:4200";
+        });
+
       }
       else{
         alert("Nhập sai tài khoản hoặc mật khẩu")
