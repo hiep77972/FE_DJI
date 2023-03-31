@@ -15,21 +15,55 @@ export class ShopComponent  implements OnInit {
   user:any=localStorage.getItem('user_id')
   response:any=[]
   productname:any;
+  productcate:any;
   totalsearchCategory:any=0
   selectedItems:number[]=new Array<number>();
   tot:any=""
+  p:any=1;
+  itemsPerPage:any=9;
+  totalproduct:any;
   user_carts:any=localStorage.getItem('user_cart')
   // checks:any=true
   constructor (private service:ApiService,private router:ActivatedRoute){}
   ngOnInit(): void {
-    // this.productname=this.router.snapshot.params['name'];
-    this.getListProducts();
-    this.getProductByCategorys();
+    this.router.paramMap.subscribe((param)=>{
+      this.productname=param.get('keyword');
+      if(this.productname!=null){
+        if(this.productname.includes('_')){
+          this.productcate=this.productname.replace('_', '')
+          this.tot="("+this.productcate+")"
+          this.service.getProductByCatName(this.tot).subscribe(data=>{
+            this.products=data;
+            this.totalproduct=this.products.length;
+          });
+          this.getProductByCategorys();
+        }
+        else{
+          this.getListProducts();
+          this.getProductByCategorys();
+        }
+      }
+      else {
+        this.getListProducts();
+        this.getProductByCategorys();
+      }
+    });
+
   }
   getListProducts(){
-    this.service.getProducts().subscribe(data=>{
-    this.products=data;
-  });
+    if(this.productname!=null){
+      this.service.getProductByName(this.productname).subscribe(data=>{
+        this.products=data;
+        this.totalproduct=this.products.length;
+      });
+    }
+    else{
+      this.service.getProducts().subscribe(data=>{
+        this.products=data;
+        this.totalproduct=this.products.length;
+      });
+    }
+    
   }
   addToCart(id1:number,name1:string,price1:number){
     if(this.user!=null){
@@ -71,11 +105,13 @@ export class ShopComponent  implements OnInit {
   searchProduct(){
     this.service.getProductByName(this.productname).subscribe(data=>{
       this.products=data;
+      this.totalproduct=this.products.length;
     });
   }
   getProductByCategorys(){
     this.service.getProductByCategory().subscribe(data=>{
       this.searchCategory=data;
+      this.totalsearchCategory=0;
       for (let i = 0; i < this.searchCategory.length; i++) {
         this.totalsearchCategory+=this.searchCategory[i].sosanpham;
       }
@@ -99,6 +135,7 @@ export class ShopComponent  implements OnInit {
     this.tot="("+this.tot+")"
     this.service.getProductByCatName(this.tot).subscribe(data=>{
       this.products=data;
+      this.totalproduct=this.products.length;
     });
   }
   // bulk(e:any){

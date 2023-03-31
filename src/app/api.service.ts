@@ -25,7 +25,9 @@ export class ApiService {
   getProducts():Observable<any[]>{
     return this.http.get<any>(this.url+'get-products');
   }
-
+  getTopProducts():Observable<any[]>{
+    return this.http.get<any>(this.url+'get-top-products');
+  }
   getDeTailProduct(id:number):Observable<any[]>{
     return this.http.get<any>(this.url+'get-product_by_id?id='+id);
   }

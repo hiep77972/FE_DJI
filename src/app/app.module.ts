@@ -18,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './api.service';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +40,7 @@ import { ApiService } from './api.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

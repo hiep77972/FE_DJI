@@ -15,15 +15,19 @@ export class HomeComponent  implements OnInit {
   user:any=localStorage.getItem('user_id')
   user_carts:any=localStorage.getItem('user_cart')
   response:any=[]
-
+  productcate:any;
+  totalproductcate:any;
+  dji_product:any;
+  phantom_product:any;
+  inspire_product:any;
   constructor (private service:ApiService){}
   ngOnInit(): void {
     this.getListProducts();
-
+    this.getProductByCategorys();
   }
 
   getListProducts(){
-    this.service.getProducts().subscribe(data=>{
+    this.service.getTopProducts().subscribe(data=>{
     this.products=data;
   });
   }
@@ -64,5 +68,25 @@ export class HomeComponent  implements OnInit {
 
     }
     else alert("Vui lòng đăng nhập để tiếp tục")
+  }
+  getProductByCategorys(){
+    this.service.getProductByCategory().subscribe(data=>{
+      this.productcate=data;
+      this.totalproductcate=0;
+      for (let i = 0; i < this.productcate.length; i++) {
+        if(this.productcate[i].name=="DJI"){
+          this.dji_product=this.productcate[i];
+ 
+        }
+        else if(this.productcate[i].name=="Phantom"){
+          this.phantom_product=this.productcate[i];
+
+        }
+        else if(this.productcate[i].name=="Inspire"){
+          this.inspire_product=this.productcate[i];
+        }
+      }
+    });
+    
   }
 }

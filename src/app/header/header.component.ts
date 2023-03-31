@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ShopComponent } from '../shop/shop.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild(ShopComponent)
+  myChild:any;
   productcategories:any =[];
   table:any=[]
   countCart:any=0;
   productname:any
+  keyword:any="";
   user:any=localStorage.getItem('user_id')
   user_carts:any=localStorage.getItem('user_cart')
 
@@ -50,7 +54,6 @@ export class HeaderComponent implements OnInit {
     // }else this.countCart=0
   }
   searchProduct(){
-    // this.router.navigate(['/shop/'+this.productname]);
-    this.router.navigate(['/shop']);
+    this.router.navigate(['/shop/'+this.keyword]);
   }
 }
